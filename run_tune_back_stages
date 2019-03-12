@@ -1,0 +1,5 @@
+#!/bin/bash
+mkdir $1/calltech/
+mkdir $1/flowers/ 
+CUDA_VISIBLE_DEVICES=0 python main.py -d cars --saving_folder $1/calltech/ --cascade --lr 0.001 --starting_nb_epochs 30 --epochs_step 0 --starting_stage 8 --weight_decay 10.e-3 --batch_size 32 --model $2 --back_stages 4 --fine_tune &
+CUDA_VISIBLE_DEVICES=1 python main.py -d flowers --saving_folder $1/flowers/ --cascade --lr 0.001 --starting_nb_epochs 30 --epochs_step 0 --starting_stage 8 --weight_decay 10.e-3 --batch_size 32 --model $2 --back_stages 4 --fine_tune

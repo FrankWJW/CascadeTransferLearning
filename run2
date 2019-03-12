@@ -1,0 +1,4 @@
+#!/bin/bash
+mkdir $1
+# python main.py -d $3 --saving_folder $1/$SLURM_ARRAY_TASK_ID --cascade --lr 0.001 --starting_nb_epochs 30 --epochs_step 0 --cross_validation_split $SLURM_ARRAY_TASK_ID --starting_stage 8 --back_stages 2 --batch_size 32 --weight_decay 10.e-4 --model $2
+CUDA_VISIBLE_DEVICES=$4 python main.py -d $3 --saving_folder $1 --cascade --lr 0.001 --starting_nb_epochs 30 --epochs_step 0 --cross_validation_split 1 --starting_stage 8 --back_stages 2 --batch_size 32 --weight_decay 10.e-4 --model $2 --save_best

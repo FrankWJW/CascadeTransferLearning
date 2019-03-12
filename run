@@ -1,0 +1,8 @@
+#!/bin/bash
+# for i in {8..16}
+# do
+# echo "TRAINING WITH DEPTH $SLURM_ARRAY_TASK_ID"
+python main.py -d $3 --saving_folder $1/$SLURM_ARRAY_TASK_ID --save_best --nb_epochs 40 --lr_schedule 15,25 --model $2 --fine_tune --batch_size 32 --cross_validation_split $SLURM_ARRAY_TASK_ID --tuning_epochs 40 --weight_decay 10.e-3
+# CUDA_VISIBLE_DEVICES=2 python main.py -d flowers --saving_folder $1/flowers/ --nb_epochs 30 --lr_schedule 15,25 --model $2 --fine_tune --batch_size 32
+# CUDA_VISIBLE_DEVICES=2 python main.py -d texture --saving_folder $1/texture/ --nb_epochs 30 --lr_schedule 15,25 --model $2 --fine_tune --batch_size 32
+# done

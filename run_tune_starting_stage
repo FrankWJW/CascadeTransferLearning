@@ -1,0 +1,11 @@
+#!/bin/bash
+# mkdir $3
+for i in {4..6}
+do
+echo "STARTING STAGE $i"
+echo "SAVING AT $3/$i"
+echo "DATASET $1"
+echo "MODEL $2"
+echo "CUDA DEVICE $4"
+CUDA_VISIBLE_DEVICES=$4 python main.py -d $1 --saving_folder "$3/$i" --cascade --lr 0.001 --starting_nb_epochs 30 --epochs_step 0 --cross_validation_split 1 --starting_stage 8 --back_stages $i --batch_size 32 --weight_decay 10.e-4 --model $2
+done
