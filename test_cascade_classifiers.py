@@ -16,7 +16,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--saving_folder', type=str, default='')
+parser.add_argument('--saving_folder', type=str, default='E:/git/CascadeTransferLearning/')
 parser.add_argument('--seed',type=int,default=7)
 parser.add_argument('--devices',type=int,default=1)
 args = parser.parse_args()
@@ -73,7 +73,7 @@ elif args.dataset == 'texture':
 testing_loader = DataLoader(dataset=test_dataset,
                             batch_size=1,
                             shuffle=True,
-                            num_workers=2,
+                            num_workers=0,
                             drop_last=True,
                             pin_memory=True)
  
@@ -91,7 +91,8 @@ cascade_trainer = cascade.CascadeLearning(None,None,starting_stage=args.starting
 images_to_plot = {}
 tester = test.Tester(testing_loader,criterion,verbose=args.verbose,mean_per_class_metric= metric == 'mean_class_acc')
 for sub_model,stage in cascade_trainer.yield_models(model,back_stages=args.back_stages,x_sample=test_sample):
-  sub_model.load_state_dict(torch.load(os.path.join(args.saving_folder,str(stage),'modelbest_.pth.tar')))
+  # sub_model.load_state_dict(torch.load(os.path.join(args.saving_folder,str(stage),'modelbest_.pth.tar')))
+  sub_model.load_state_dict(torch.load(os.path.join(args.saving_folder, str(stage), 'model.pth.tar')))
   sub_model.train(False)
   correct_idxs = tester.get_high_confidence_images(sub_model)
   # sorted_idxs = np.argsort(np.abs(correct_idxs[:,1]-0.9))

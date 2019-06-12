@@ -13,7 +13,7 @@ from sklearn.model_selection import RepeatedStratifiedKFold
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-d', '--dataset', type=str, default='cars')
-parser.add_argument('--saving_folder', type=str, default='')
+parser.add_argument('--saving_folder', type=str, default='E:/git/CascadeTransferLearning/')
 parser.add_argument('--batch_size', type=int,default=64)
 parser.add_argument('--lr',type=float,default=0.01)
 parser.add_argument('--momentum',type=float,default=0.9)
