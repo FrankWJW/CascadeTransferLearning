@@ -5,7 +5,7 @@ import shutil
 import torch
 
 # default_data_path = '/ssd/esm1g14/CascadeTransferLearning/Calltech-101/'
-default_data_path = 'D:/git/CascadeTransferLearning/data'
+default_data_path = 'E:/git/CascadeTransferLearning/data'
 # default_data_path = 'CascadeTransferLearning/data'
 default_test_images = [20,30]
 class Calltech101(ImageDataset):

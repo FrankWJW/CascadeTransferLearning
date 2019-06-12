@@ -32,11 +32,11 @@ class Trainer():
         self.save_best = save_best
         self.mean_per_class_metric = mean_per_class_metric
         self.nb_classes = self.training_loader.dataset.nb_classes()
-        # self.devices = devices
-        self.devices = 'cpu'
-        # self.model = model.cuda()
-        # if len(self.devices) > 1:
-        #     self.model = torch.nn.parallel.replicate(self.model, self.devices)
+        self.devices = devices
+        # self.devices = 'cpu'
+        self.model = model.cuda()
+        if len(self.devices) > 1:
+            self.model = torch.nn.parallel.replicate(self.model, self.devices)
     def __call__(self,nb_epochs,drop_learning_rate=[],name=''):
         print(('TRAINING MODEL WITH EPOCHS %d')%(nb_epochs))
         best_acc = 0.
@@ -94,13 +94,14 @@ class Trainer():
         return running_loss,correct
     def train_batch(self,x,y):
         self.optimizer.zero_grad()
-        # y = y.cuda().view(-1)
-        # x = x.cuda()
-        y = y.view(-1)
-        if self.devices == 'cpu':
-            out = self.model(x)
-        # if len(self.devices) == 1:
+        y = y.cuda().view(-1)
+        x = x.cuda()
+        # y = y.view(-1)
+        # if self.devices == 'cpu':
         #     out = self.model(x)
+
+        if len(self.devices) == 1:
+            out = self.model(x)
         else:
             x = torch.nn.parallel.scatter(x, self.devices)
             out = torch.nn.parallel.parallel_apply(self.model, x)
