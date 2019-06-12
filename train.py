@@ -94,7 +94,7 @@ elif args.dataset == 'texture':
 # test_dataset.chop_dataset(fraction=args.fraction_test_set)
 training_loader = DataLoader(dataset=train_dataset,
                              batch_size=args.batch_size,
-                             num_workers=2,
+                             num_workers=0,
                              drop_last=True,
                              shuffle=True,
                              pin_memory=True)
@@ -108,7 +108,7 @@ if validation_dataset != None:
     validation_loader = DataLoader(dataset=validation_dataset,
                                 batch_size=args.batch_size,
                                 shuffle=True,
-                                num_workers=2,
+                                num_workers=0,
                                 drop_last=True,
                                 pin_memory=True)
 else:
@@ -131,7 +131,7 @@ print(len(test_dataset))
 # device = torch.device('cuda:0')
 model.set_encoder_stage(args.depth)
 model.build_classifier(random_training_sample)
-model = model.cuda()
+#model = model.cuda()
 if args.devices > 1:
   model = nn.DataParallel(model,device_ids=[x for x in range(args.devices)])
   # model.to(device)
@@ -141,8 +141,11 @@ optimizer = cascade.CascadeOptimizer(torch.optim.SGD,{'lr' : args.lr,'momentum' 
 # optimizer = torch.optim.SGD(filter(lambdna p: p.requires_grad, model.parameters()),lr=args.lr,momentum=args.momentum,nesterov=bool(args.nesterov),weight_decay=args.weight_decay)
 # optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()))
 criterion = nn.CrossEntropyLoss()
+# trainer = train.Trainer(model,training_loader,optimizer.plain_optimizer(model,learning_rate_reduction=1),criterion,validation_loader=validation_loader,test_loader=testing_loader,verbose=args.verbose,
+#                  saving_folder=args.saving_folder,save_best=bool(args.save_best),mean_per_class_metric= metric == 'mean_class_acc',devices=[x for x in range(args.devices)])
 trainer = train.Trainer(model,training_loader,optimizer.plain_optimizer(model,learning_rate_reduction=1),criterion,validation_loader=validation_loader,test_loader=testing_loader,verbose=args.verbose,
-                 saving_folder=args.saving_folder,save_best=bool(args.save_best),mean_per_class_metric= metric == 'mean_class_acc',devices=[x for x in range(args.devices)])
+                 saving_folder=args.saving_folder,save_best=bool(args.save_best),mean_per_class_metric= metric == 'mean_class_acc',devices='cpu')
+
 if bool(args.cascade):
     cascade_trainer = cascade.CascadeLearning(trainer,optimizer,starting_nb_epochs=args.starting_nb_epochs,epochs_step=args.epochs_step,starting_stage=args.starting_stage)
     cascade_trainer(back_stages=args.back_stages)

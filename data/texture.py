@@ -4,7 +4,8 @@ from .dataset import ImageDataset
 import shutil
 import torch
 
-default_data_path = '/ssd/esm1g14/CascadeTransferLearning/dtd/images'
+#default_data_path = '/ssd/esm1g14/CascadeTransferLearning/dtd/images'
+default_data_path = 'D:/git/CascadeTransferLearning/data'
 class DTD(ImageDataset):
 	'Describable textures dataset'
 	def __init__(self,datapath=default_data_path,images_folder=['train1.txt','val1.txt'],input_transform=None):
