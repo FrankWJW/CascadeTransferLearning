@@ -172,7 +172,7 @@ class Renderer():
         plt.legend(loc=0)
           
 parser = argparse.ArgumentParser()
-parser.add_argument('--folder', type=str,default='')
+parser.add_argument('--folder', type=str,default='E:\git\CascadeTransferLearning\data')
 parser.add_argument('--history_name',type=str,default='history.json')
 parser.add_argument('--datasets',type=list,default=['calltech','flowers','texture'])
 parser.add_argument('--cascade',action='store_true',default=False)
