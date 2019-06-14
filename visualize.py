@@ -26,7 +26,7 @@ class ColourYielder():
     def create_colour_dict(self,indexes):
         return {index : color for index,color in zip(indexes,self.colours[0:len(indexes)])}
 class Renderer():
-    def __init__(self,folder,datasets=['calltech','flowers','texture'],colour_yielder=ColourYielder(),history_name='history.json',cascade=False,metrics_to_ignore=['time','nb_parameters'],tuning_history=False):
+    def __init__(self,folder,datasets=['car','flowers','texture'],colour_yielder=ColourYielder(),history_name='history.json',cascade=False,metrics_to_ignore=['time','nb_parameters'],tuning_history=False):
         self.folder = folder
         self.datasets = datasets
         self.cascade = cascade
@@ -174,7 +174,7 @@ class Renderer():
 parser = argparse.ArgumentParser()
 parser.add_argument('--folder', type=str,default='E:\git\CascadeTransferLearning\data')
 parser.add_argument('--history_name',type=str,default='history.json')
-parser.add_argument('--datasets',type=list,default=['calltech','flowers','texture'])
+parser.add_argument('--datasets',type=list,default=['car','flowers','texture'])
 parser.add_argument('--cascade',action='store_true',default=False)
 parser.add_argument('--plot_starting_stage',action='store_true',default=False)
 parser.add_argument('--plot_back_stages',action='store_true',default=False)

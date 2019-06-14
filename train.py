@@ -12,7 +12,7 @@ from torchvision import transforms
 from sklearn.model_selection import RepeatedStratifiedKFold
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-d', '--dataset', type=str, default='cars')
+parser.add_argument('-d', '--dataset', type=str, default='texture')
 parser.add_argument('--saving_folder', type=str, default='E:/git/CascadeTransferLearning/')
 parser.add_argument('--batch_size', type=int,default=64)
 parser.add_argument('--lr',type=float,default=0.01)
@@ -60,16 +60,16 @@ else:
 if args.dataset == 'cars':
     from data import cars
     stratified_crossvalidation = RepeatedStratifiedKFold(n_splits=3,n_repeats=5,random_state=args.seed)
-    data = cars.Calltech101(images_folder='images',input_transform=training_transform)
+    data = cars.Calltech101(images_folder='car',input_transform=training_transform)
     data.shuffle(seed=args.seed)
     data_size = len(data)
     indexes = np.arange(0,data_size,1,dtype=int)
     targets = np.asarray(data.targets)
     kfolds = list(stratified_crossvalidation.split(indexes,targets))
-    train_dataset = cars.Calltech101(images_folder='images',input_transform=training_transform)
+    train_dataset = cars.Calltech101(images_folder='car',input_transform=training_transform)
     train_dataset.shuffle(seed=args.seed)
     train_dataset.prune_dataset(indexes=kfolds[args.cross_validation_split][1])
-    test_dataset = cars.Calltech101(images_folder='images',input_transform=test_transform)
+    test_dataset = cars.Calltech101(images_folder='car',input_transform=test_transform)
     train_dataset.shuffle(seed=args.seed)
     test_dataset.prune_dataset(indexes=kfolds[args.cross_validation_split][0])
     validation_dataset = None
@@ -86,8 +86,8 @@ elif args.dataset == 'flowers':
 elif args.dataset == 'texture':
     from data import texture
     # nb_files = 1-10
-    train_dataset = texture.DTD(images_folder=['train'+str(args.cross_validation_split)+'.txt','val'+str(args.cross_validation_split)+'.txt'],input_transform=training_transform)
-    test_dataset = texture.DTD(images_folder='test'+str(args.cross_validation_split)+'.txt',input_transform=test_transform)
+    train_dataset = texture.DTD(images_folder=['train'+str(args.cross_validation_split+1)+'.txt','val'+str(args.cross_validation_split+1)+'.txt'],input_transform=training_transform)
+    test_dataset = texture.DTD(images_folder='test'+str(args.cross_validation_split+1)+'.txt',input_transform=test_transform)
     metric = 'acc'
     # validation_dataset = texture.DTD(images_folder='val'+str(args.cross_validation_split)+'.txt',input_transform=test_transform)
     validation_dataset = None

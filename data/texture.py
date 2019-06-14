@@ -5,16 +5,16 @@ import shutil
 import torch
 
 #default_data_path = '/ssd/esm1g14/CascadeTransferLearning/dtd/images'
-default_data_path = 'D:/git/CascadeTransferLearning/data'
+default_data_path = 'E:/git/CascadeTransferLearning/data/texture/images'
 class DTD(ImageDataset):
 	'Describable textures dataset'
 	def __init__(self,datapath=default_data_path,images_folder=['train1.txt','val1.txt'],input_transform=None):
 		super().__init__(datapath=datapath,input_transform=input_transform)
 		self.path = self.datapath
 		if isinstance(images_folder,list):
-			self.data_file = [os.path.join(datapath,'../labels',image_folder) for image_folder in images_folder]
+			self.data_file = [os.path.join(datapath,'labels',image_folder) for image_folder in images_folder]
 		else:
-			self.data_file = [os.path.join(datapath,'../labels',images_folder)]
+			self.data_file = [os.path.join(datapath,'labels',images_folder)]
 		self.prepare_data()
 		# self.shuffle()
 	def prepare_data(self):

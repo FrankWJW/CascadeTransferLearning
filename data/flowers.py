@@ -5,7 +5,8 @@ import shutil
 import torch
 from scipy import io
 
-default_data_path = '/ssd/esm1g14/CascadeTransferLearning/102flowers/'
+# default_data_path = '/ssd/esm1g14/CascadeTransferLearning/102flowers/'
+default_data_path = 'E:/git/CascadeTransferLearning/data/flowers'
 class Flowers102(ImageDataset):
 	def __init__(self,datapath=default_data_path,images_folder='train-val',input_transform=None):
 		super().__init__(datapath=datapath,input_transform=input_transform)
