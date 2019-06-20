@@ -9,7 +9,7 @@ default_data_path = 'E:/git/CascadeTransferLearning/data/'
 # default_data_path = 'CascadeTransferLearning/data'
 default_test_images = [20,30]
 class Calltech101(ImageDataset):
-	def __init__(self,datapath=default_data_path,images_folder='train',input_transform=None,cross_validation_index=None):
+	def __init__(self,datapath=default_data_path,images_folder='images',input_transform=None,cross_validation_index=None):
 		super().__init__(datapath=datapath,input_transform=input_transform)
 		self.path = os.path.join(self.datapath,images_folder)
 		self.prepare_data()

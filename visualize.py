@@ -46,6 +46,7 @@ class Renderer():
             if cascade:
                 for dataset,run_info in self.history_dict.items():
                     for run_index,histories in run_info.items():
+                        print(run_info)
                         stages = [int(stage) for stage in histories.keys()]
                         global_history = {key : [] for key in histories[str(stages[0])].keys() if not(key in self.metrics_to_ignore)}
                         starting_stage = min(stages)
@@ -172,7 +173,7 @@ class Renderer():
         plt.legend(loc=0)
           
 parser = argparse.ArgumentParser()
-parser.add_argument('--folder', type=str,default='E:\git\CascadeTransferLearning\data')
+parser.add_argument('--folder', type=str,default='E:/git/CascadeTransferLearning/test')
 parser.add_argument('--history_name',type=str,default='history.json')
 parser.add_argument('--datasets',type=list,default=['car','flowers','texture'])
 parser.add_argument('--cascade',action='store_true',default=False)
@@ -180,7 +181,7 @@ parser.add_argument('--plot_starting_stage',action='store_true',default=False)
 parser.add_argument('--plot_back_stages',action='store_true',default=False)
 parser.add_argument('--plot_learning_curves',action='store_true',default=False)
 parser.add_argument('--tuning_history',action='store_true',default=False)
-parser.add_argument('--plot_memory_complexity',action='store_true',default=False)
+parser.add_argument('--plot_memory_complexity',action='store_true',default=True)
 args = parser.parse_args()
 colours =  [(0.,0.,0.),(192./255,192./255,192./255)]+sb.color_palette('Paired')
 MEMORY_DICT = {'FT' : {'ResNet-34' : (912,(0.92,0.93,0.70)), 'ResNet-50' : (1213,(0.92,0.93,0.72)), 'ResNet-101' : (2108,(0.92,0.93,0.72))},

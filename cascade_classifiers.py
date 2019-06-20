@@ -16,7 +16,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--saving_folder', type=str, default='E:/git/CascadeTransferLearning/')
+parser.add_argument('--saving_folder', type=str, default='E:/git/CascadeTransferLearning/test/car')
 parser.add_argument('--seed',type=int,default=7)
 parser.add_argument('--devices',type=int,default=1)
 args = parser.parse_args()
